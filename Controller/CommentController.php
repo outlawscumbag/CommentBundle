@@ -148,9 +148,8 @@ class CommentController extends ContainerAware
      */
     protected function onCreateSuccess(Form $form)
     {
-        return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
-            'id' => $form->getData()->getThread()->getId()
-        ));
+        $page = $_SERVER['HTTP_REFERER'];
+        return new RedirectResponse($page);
     }
 
     /**
