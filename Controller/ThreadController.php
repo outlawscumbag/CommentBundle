@@ -82,8 +82,10 @@ class ThreadController extends ContainerAware
         $thread = $this->getThread($id);
         $newCommentForm = $this->getCommentForm($thread);
         $replyForm = $this->getCommentForm($thread);
-
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
+            'user'             => $user,
             'thread'           => $thread,
             'sorter'           => $sorter,
             'displayDepth'     => $displayDepth,

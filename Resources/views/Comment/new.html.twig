@@ -32,7 +32,7 @@
     <div class="CommentCompose">
         <div class="CommentComposeAuthorAvatar"><img src="{{ asset('bundles/noogamain/res/img/default_avatar.png') }}" height="36" width="36"></div>
         <div class="CommentComposeContainer">
-            <div class="CommentComposeAuthorName"></div>
+            <div class="CommentComposeAuthorName">{{ user.username }}</div>
             <a href="{{ path('_security_logout') }}" class="NoogaLogout right">Log Out</a>
             <div class="CommentComposeFormContainer">
                 <form class="fos_comment_comment_form" action="{{ path("fos_comment_comment_create", { "threadId": thread.id }) }}" method="POST">
