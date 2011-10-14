@@ -55,12 +55,13 @@ class DefaultVoteCreator implements VoteCreatorInterface
     {
         $this->voteBlamer->blame($vote);
 
-        if (count($this->validator->validate($vote))) {
+        /*if (count($this->validator->validate($vote))) {
             return false;
-        }
+        }*/
 
         $this->voteManager->addVote($vote, $comment);
 
         return true;
     }
+    
 }

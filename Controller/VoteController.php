@@ -52,7 +52,8 @@ class VoteController extends ContainerAware
         }
 
         $vote = $this->createVote($value);
-        if ($this->container->get('fos_comment.creator.vote')->create($vote, $comment)) {
+
+        if($this->container->get('fos_comment.creator.vote')->create($vote, $comment)) {
             return new Response(json_encode(array('score' => $comment->getScore())));
         }
 
@@ -91,7 +92,6 @@ class VoteController extends ContainerAware
     {
         $vote = $this->container->get('fos_comment.manager.vote')->createVote();
         $vote->setValue($value);
-
         return $vote;
     }
 }

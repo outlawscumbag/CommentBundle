@@ -52,8 +52,8 @@ $('button.fos_comment_comment_vote').live('click', function () {
     var $button = $(this);
     var $container = $button.parent();
     var $score = $container.find('.fos_comment_comment_score');
-
+    var text = "Score: ";
     $.getJSON($button.attr('data-url'), function (data) {
-        $score.text(data.score);
+        $score.text(text+data.score);
     });
 });

@@ -6,29 +6,56 @@
 
  This source file is subject to the MIT license that is bundled
  with this source code in the file LICENSE.
-
+<a href="#" class="ButtonBlack CommentSubmit right">Post Response</a>
 #}
 
 {% block fos_comment_form_title %}
-    {% if first %}
-        <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
-    {% else %}
-        <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
-    {% endif %}
-{% endblock %}
-
-<form class="fos_comment_comment_form" action="{{ path("fos_comment_comment_create", { "threadId": thread.id }) }}" method="POST">
-
-    {% block fos_comment_form_fields %}
-        {{ form_errors(form) }}
-        {{ form_widget(form.body) }}
-        {{ form_widget(form._token) }}
-    {% endblock %}
-
-    <div class="fos_comment_submit">
-        {% block fos_comment_form_submit %}
-            <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" />
-        {% endblock %}
+<div class="Widget">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="WidgetHeader">
+        <div class="Title">Leave a Response</div>
+        <a href="#" class="Button LikeButton">Like</a>
+        <a href="#" class="Button DislikeButton"></a>
+        <div class="LikeCount">15 people liked this article.</div>
+        <div class="clear"></div>
     </div>
+    {% endif %}
+</div>
 
-</form>
+{% endblock %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<div class="CommentsWidget Widget">
+    <div class="CommentComposeWidget Widget">
+    <div class="WidgetHeader">
+        <div class="clear"></div> 
+    </div>
+    <div class="CommentCompose">
+        <div class="CommentComposeAuthorAvatar"><img src="{{ asset('bundles/noogamain/res/img/default_avatar.png') }}" height="36" width="36"></div>
+        <div class="CommentComposeContainer">
+            <div class="CommentComposeAuthorName"></div>
+            <a href="{{ path('_security_logout') }}" class="NoogaLogout right">Log Out</a>
+            <div class="CommentComposeFormContainer">
+                <form class="fos_comment_comment_form" action="{{ path("fos_comment_comment_create", { "threadId": thread.id }) }}" method="POST">
+                    <div class="CommentComposeFieldContainer">
+                        {% block fos_comment_form_fields %}
+                            {{ form_errors(form) }}
+                            {{ form_widget(form.body, { 'attr': { 'class': 'CommentComposeField' }} ) }}
+                            {{ form_widget(form._token) }}
+                        {% endblock %}
+                    </div>
+                    <div class="ShareOption align"><label><input type="checkbox" checked> Share on Twitter</label></div>
+                    <div class="ShareOption align"><label><input type="checkbox"> Share on Facebook</label></div>
+                    <div class="ShareOption align"><label><input type="checkbox"> Share on Google+</label></div>
+                    <div class="fos_comment_submit">
+                        {% block fos_comment_form_submit %}
+                            <input type="submit" class="ButtonBlack CommentSubmit right" value="Post Response"/>
+                        {% endblock %}
+                    </div>
+                    <div class="clear"></div>
+                </form>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endif %}

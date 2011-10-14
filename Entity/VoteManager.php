@@ -70,6 +70,7 @@ class VoteManager extends BaseVoteManager
         $this->em->flush();
     }
 
+    
     /**
      * {@inheritDoc}
      */

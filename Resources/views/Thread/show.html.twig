@@ -9,18 +9,22 @@
 
 #}
 
-<div class="fos_comment_thread_show">
+<div class="fos_comment_thread_show CommentList">
 
     {% include "FOSCommentBundle:Comment:new.html.twig" with {"form": newCommentForm, "first": 0 == thread.numComments, "thread": thread} %}
 
-    <a href="{{ path("fos_comment_thread_show_feed", {"id": thread.id}) }}">{% trans from 'FOSCommentBundle' %}fos_comment_rss_feed{% endtrans %}</a>
+    {#<a href="{{ path("fos_comment_thread_show_feed", {"id": thread.id}) }}">{% trans from 'FOSCommentBundle' %}fos_comment_rss_feed{% endtrans %}</a>#}
 
     {% if thread.numComments > 0 %}
-        <h3>
-            {% transchoice thread.numComments with {'%num%': thread.numComments} from "FOSCommentBundle" %}
-                Showing %num% comment|Showing %num% comments
-            {% endtranschoice %}
-        </h3>
+    <div class="Widget">
+        <div class="WidgetHeader">
+            <div class="Title">
+                {% transchoice thread.numComments with {'%num%': thread.numComments} from "FOSCommentBundle" %}
+                    %num% Response|%num% Responses
+                {% endtranschoice %}
+            </div>
+        </div>
+    </div>
         <div class="fos_comment_thread_comments">
             {% render "FOSCommentBundle:Comment:tree" with {"thread": thread, "sorter": sorter, "displayDepth": displayDepth } %}
         </div>

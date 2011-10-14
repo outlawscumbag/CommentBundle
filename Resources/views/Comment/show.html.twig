@@ -13,21 +13,38 @@
 {% set children = children|default([]) %}
 {% set displayDepth = displayDepth|default(0) %}
 
-<div class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" id="{{ comment.id }}">
-    <div class="fos_comment_comment_metas">
-        {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} {{ comment.authorName }} - {{ comment.createdAt|date }}
+<div class="SingleComment fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" id="{{ comment.id }}">
+    <div class="CommentHeader BorderBottom fos_comment_comment_metas" style="padding: 5px 0;">
+        <div class="Avatar">
+            <img src="{{ asset('bundles/noogamain/res/img/demo/user_avatar1.png') }}" height="36" width="36">
+        </div>
+        <div class="CommentBrief">
+            <div class="CommentAuthor"><a href="#">{{ comment.authorName }}</a></div>
+            <div class="CommentTimeScope">
+                <span id="{{ comment.id }}_time_span"></span>
+            </div>
+            <script>
+                time = "{{ comment.createdAt|date('Y/m/d g:i:s') }}";
+                elem = "{{ comment.id }}_time_span";
+                $('#{{ comment.id }}_time_span').text(time_span(time));
+            </script>
+        </div>
+        <div class="LikeContext">
         {% if comment is fos_comment_votable %}
-        <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
-        <button data-url="{{ path("fos_comment_vote_add_down", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
-        <div class="fos_comment_comment_score">{{ comment.score }}</div>
+        <div class="LikeCount fos_comment_comment_score" style="padding: 5px 5px" >Score: {{ comment.score }}</div>
+        <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote Button Thin" style="height:24px">Like</button> 
         {% endif %}
+        </div>
+        <div class="clear"></div>
     </div>
-    <div class="fos_comment_comment_body">
+    <div class="CommentContent">
         {{ comment.body }}
     </div>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     <div class="fos_comment_comment_reply">
         <button data-url="{{ path('fos_comment_comment_create', {"threadId": comment.thread.id, "parentId": comment.id}) }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</button>
     </div>
+    {% endif %}
     <div class="fos_comment_comment_replies">
         {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children, "depth": depth + 1, "displayDepth": displayDepth, "sorter": sorter } %}
     </div>
