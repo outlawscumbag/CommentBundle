@@ -31,7 +31,7 @@
         </div>
         <div class="LikeContext">
         {% if comment is fos_comment_votable %}
-        <div class="LikeCount fos_comment_comment_score" style="padding: 5px 5px">{% if comment.score != 0 or null %}{{ comment.score }} {% if comment.score > 1 %}people like {% else %}person likes {% endif %}{% endif %}</div>
+        <div class="LikeCount fos_comment_comment_score" style="padding: 5px 5px">{% if comment.score != 0 or null %}{{ comment.score }} {% if comment.score > 1 %}people like this comment{% else %}person likes this comment{% endif %}{% endif %}</div>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote Button Thin" style="height:24px">Like</button> 
             {% endif %}
