@@ -10,17 +10,6 @@
 #}
 
 {% block fos_comment_form_title %}
-<div class="Widget">
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="WidgetHeader">
-        <div class="Title">Leave a Response</div>
-        <a href="#" class="Button LikeButton">Like</a>
-        <a href="#" class="Button DislikeButton"></a>
-        <div class="LikeCount">15 people liked this article.</div>
-        <div class="clear"></div>
-    </div>
-    {% endif %}
-</div>
 
 {% endblock %}
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
