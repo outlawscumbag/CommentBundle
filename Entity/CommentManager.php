@@ -144,6 +144,11 @@ class CommentManager extends BaseCommentManager
         $this->em->flush();
     }
 
+    public function findByStatus($status)
+    {
+        return $this->repository->findBy(array('status' => $status));
+    }
+
     /**
      * Find one comment by its ID
      *
