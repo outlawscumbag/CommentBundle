@@ -49,4 +49,10 @@ interface CommentInterface
      * @return ThreadInterface
      */
     function getThread();
+    
+    /**
+     * @return string $status
+     */
+    function getStatus();
+
 }

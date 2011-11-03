@@ -54,6 +54,11 @@ abstract class Comment implements CommentInterface
      */
     protected $createdAt;
 
+    /**
+     * @var string
+     */
+    protected $status = '';
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -144,4 +149,23 @@ abstract class Comment implements CommentInterface
 
         $this->setAncestors($ancestors);
     }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    { 
+        return $this->status;
+    }  
+    
+    /**
+     * @param  string
+     * @return null 
+     */
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
+    }
+ 
+
 }
