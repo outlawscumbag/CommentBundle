@@ -139,7 +139,7 @@ class CommentController extends ContainerAware
 
         return $this->onCreateError($form);
     }
-
+    
     /**
      * Forwards the action to the thread view on a successful form submission.
      *

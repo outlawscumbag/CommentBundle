@@ -9,7 +9,7 @@
 
 #}
 
-{% set depth = depth|default(0) %}
+{% set depth = 1 %}
 {% set children = children|default([]) %}
 {% set displayDepth = displayDepth|default(0) %}
 
@@ -31,7 +31,7 @@
         </div>
         <div class="LikeContext">
         {% if comment is fos_comment_votable %}
-        <div class="LikeCount fos_comment_comment_score" style="padding: 5px 5px">{{ comment.score >= 1 ? comment.score == 1 ? comment.score ~ ' person likes this article' : comment.score ~ ' people like this article' : '' }}</div>
+        <div class="LikeCount fos_comment_comment_score" style="padding: 5px 5px">{{ comment.score >= 1 ? comment.score == 1 ? comment.score ~ ' person likes this comment' : comment.score ~ ' people like this comment' : '' }}</div>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote Button Thin" style="height:24px">Like</button> 
             {% endif %}
@@ -49,8 +49,9 @@
     {% endif %}
 </div>
 <div class="fos_comment_comment_replies Reply">
-    {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children, "depth": depth + 1, "displayDepth": displayDepth, "sorter": sorter } %}
+    {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children, "depth": depth + 1, "displayDepth": depth + 1, "sorter": sorter } %}
 </div>
 <script>
     $('.Reply').children().css('margin-top', '-1px');
+    $('.fos_comment_comment_replies').children('.SingleComment').children('.fos_comment_comment_reply').hide();
 </script>

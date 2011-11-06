@@ -46,4 +46,5 @@ abstract class Comment extends AbstractComment
         $this->ancestors = implode('/', $ancestors);
         $this->depth = count($ancestors);
     }
+
 }

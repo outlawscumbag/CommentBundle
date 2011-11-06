@@ -24,6 +24,8 @@
 
         <field name="createdAt" column="created_at" type="datetime" />
 
+        <field name="status" column="status" type="string" />
+
     </mapped-superclass>
 
 </doctrine-mapping>

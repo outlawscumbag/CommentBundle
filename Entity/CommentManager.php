@@ -70,8 +70,10 @@ class CommentManager extends BaseCommentManager
                 ->createQueryBuilder('c')
                 ->join('c.thread', 't')
                 ->where('t.id = :thread')
+                ->andWhere('c.status = :status')
                 ->orderBy('c.ancestors', 'ASC')
-                ->setParameter('thread', $thread->getId());
+                ->setParameter('thread', $thread->getId())
+                ->setParameter('status', 'approved');
 
         if ($depth > 0) {
             // Queries for an additional level so templates can determine
@@ -105,8 +107,10 @@ class CommentManager extends BaseCommentManager
         $qb = $this->repository->createQueryBuilder('c');
         $qb->join('c.thread', 't')
            ->where('LOCATE(:path, CONCAT(\'/\', CONCAT(c.ancestors, \'/\'))) > 0')
+           ->andWhere('c.status = :status')
            ->orderBy('c.ancestors', 'ASC')
-           ->setParameter('path', "/{$commentId}/");
+           ->setParameter('path', "/{$commentId}/")
+           ->setParameter('status', 'approved');
 
         $comments = $qb->getQuery()->execute();
 
@@ -135,6 +139,8 @@ class CommentManager extends BaseCommentManager
             throw new InvalidArgumentException('The comment must have a thread');
         }
 
+        $comment->setStatus('approved');
+
         $thread = $comment->getThread();
         $thread->incrementNumComments(1);
         $thread->setLastCommentAt(new DateTime());
@@ -142,6 +148,11 @@ class CommentManager extends BaseCommentManager
         $this->em->persist($thread);
         $this->em->persist($comment);
         $this->em->flush();
+    }
+
+    public function findByStatus($status)
+    {
+        return $this->repository->findBy(array('status' => $status));
     }
 
     /**

@@ -9,7 +9,7 @@
 
 #}
 
-<div class="fos_comment_thread_show CommentList">
+<div id="comments" class="fos_comment_thread_show CommentList">
 
     {% include "FOSCommentBundle:Comment:new.html.twig" with {"form": newCommentForm, "first": 0 == thread.numComments, "thread": thread} %}
 
@@ -33,4 +33,5 @@
     <div class="fos_comment_reply_prototype">
         {% include "FOSCommentBundle:Comment:reply.html.twig" with {"form": replyForm} %}
     </div>
+    <div class="clear"></div>
 </div>
