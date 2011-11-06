@@ -160,7 +160,6 @@ abstract class Comment implements CommentInterface
     
     /**
      * @param  string
-     * @return null 
      */
     public function setStatus($status)
     {
