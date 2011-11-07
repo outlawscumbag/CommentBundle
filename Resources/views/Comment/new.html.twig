@@ -24,7 +24,7 @@
             <div class="CommentComposeAuthorName">{{ user.username }}</div>
             <a href="{{ path('_security_logout') }}" class="NoogaLogout right">Log Out</a>
             <div class="CommentComposeFormContainer">
-                <form class="fos_comment_comment_form" action="{{ path("fos_comment_comment_create", { "threadId": thread.id }) }}" method="POST">
+                <form class="fos_comment_comment_form" id="comment" action="{{ path("fos_comment_comment_create", { "threadId": thread.id }) }}" method="POST">
                     <div class="CommentComposeFieldContainer">
                         {% block fos_comment_form_fields %}
                             {{ form_errors(form) }}
@@ -32,12 +32,20 @@
                             {{ form_widget(form._token) }}
                         {% endblock %}
                     </div>
-                    <div class="ShareOption align"><label><input type="checkbox" checked> Share on Twitter</label></div>
-                    <div class="ShareOption align"><label><input type="checkbox"> Share on Facebook</label></div>
-                    <div class="ShareOption align"><label><input type="checkbox"> Share on Google+</label></div>
+                    {% if user.ext is defined %}
+                    {% if user.ext == 'fb' %}
+                    <div class="ShareOption align" id="fb"><label><input id="fbshare" type="checkbox"> Share on Facebook</label></div>
+                    {% endif %}
+                    {% if user.ext == 'tw' %}
+                    <div class="ShareOption align" id="tw"><label><input id="twshare" type="checkbox"> Share on Twitter</label></div>
+                    {% endif %}
+                    {% if user.ext == 'go' %}
+                    <div class="ShareOption align" id="gp"><label><input id="goshare" type="checkbox"> Share on Google+</label></div>
+                    {% endif %}
+                    {% endif %}
                     <div class="fos_comment_submit">
                         {% block fos_comment_form_submit %}
-                            <input type="submit" class="ButtonBlack CommentSubmit right" value="Post Response"/>
+                            <input type="submit" id="ext_submit" class="ButtonBlack CommentSubmit right" value="Post Response"/>
                         {% endblock %}
                     </div>
                     <div class="clear"></div>
