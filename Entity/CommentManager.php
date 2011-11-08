@@ -71,7 +71,7 @@ class CommentManager extends BaseCommentManager
                 ->join('c.thread', 't')
                 ->where('t.id = :thread')
                 ->andWhere('c.status = :status')
-                ->orderBy('c.ancestors', 'DESC')
+                ->orderBy('c.ancestors', 'ASC')
                 ->setParameter('thread', $thread->getId())
                 ->setParameter('status', 'approved');
 
@@ -108,7 +108,7 @@ class CommentManager extends BaseCommentManager
         $qb->join('c.thread', 't')
            ->where('LOCATE(:path, CONCAT(\'/\', CONCAT(c.ancestors, \'/\'))) > 0')
            ->andWhere('c.status = :status')
-           ->orderBy('c.ancestors', 'DESC')
+           ->orderBy('c.ancestors', 'ASC')
            ->setParameter('path', "/{$commentId}/")
            ->setParameter('status', 'approved');
 
