@@ -139,7 +139,7 @@ class CommentManager extends BaseCommentManager
             throw new InvalidArgumentException('The comment must have a thread');
         }
 
-        $comment->setStatus('approved');
+        $comment->setStatus('que');
 
         $thread = $comment->getThread();
         $thread->incrementNumComments(1);
