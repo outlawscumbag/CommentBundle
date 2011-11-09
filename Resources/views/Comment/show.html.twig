@@ -16,7 +16,11 @@
 <div class="SingleComment fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" id="{{ comment.id }}">
     <div class="CommentHeader BorderBottom fos_comment_comment_metas" style="padding: 5px 0;">
         <div class="Avatar">
-            <img src="{{ asset('bundles/noogamain/res/img/demo/user_avatar1.png') }}" height="36" width="36">
+        {% if comment.getAuthor.getImagePath is not null %}
+            <img src="{{ comment.getAuthor.getWebPath }}" height="36" width="36">
+        {% else %}
+            <img src="{{ asset('bundles/noogamain/res/img/default_avatar.png') }}" height="36" width="36">
+        {% endif %}
         </div>
         <div class="CommentBrief">
             <div class="CommentAuthor"><a href="#">{{ comment.authorName }}</a></div>

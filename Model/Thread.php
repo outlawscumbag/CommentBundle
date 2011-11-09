@@ -139,6 +139,11 @@ abstract class Thread implements ThreadInterface
         return $this->numComments += intval($by);
     }
 
+    public function decrementNumComments($by = 1)
+    {
+        return $this->numComments -= intval($by);
+    }
+
     /**
      * @return DateTime
      */

@@ -19,7 +19,13 @@
         <div class="clear"></div> 
     </div>
     <div class="CommentCompose">
-        <div class="CommentComposeAuthorAvatar"><img src="{{ asset('bundles/noogamain/res/img/default_avatar.png') }}" height="36" width="36"></div>
+        <div class="CommentComposeAuthorAvatar">
+        {% if user.imagePath is not null %}
+            <img src="{{ user.getWebPath }}" height="36" width="36">
+        {% else %}
+            <img src="{{ asset('bundles/noogamain/res/img/default_avatar.png') }}" height="36" width="36">
+        {% endif %}
+        </div>
         <div class="CommentComposeContainer">
             <div class="CommentComposeAuthorName">{{ user.username }}</div>
             <a href="{{ path('_security_logout') }}" class="NoogaLogout right">Log Out</a>
