@@ -154,6 +154,19 @@ class CommentManager extends BaseCommentManager
         return $this->repository->findBy(array('status' => $status));
     }
 
+    public function getCommentQuery($filter)
+    {
+        $query = $this->repository
+            ->createQueryBuilder('c')
+            ->join('c.thread', 't')
+            ->where('c.status = :status')
+            ->orderBy('c.ancestors', 'ASC')
+            ->setParameter('status', $filter)
+            ->getQuery();
+        
+        return $query; 
+    }
+
     /**
      * Find one comment by its ID
      *
